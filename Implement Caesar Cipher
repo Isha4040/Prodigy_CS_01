@@ -1,0 +1,38 @@
+def encrypt(message, shift):
+    encrypted_text = ""
+    for char in message:
+        if char.isalpha():  # Check if the character is a letter
+            base = ord('A') if char.isupper() else ord('a')
+            # Shift the letter and wrap around the alphabet
+            new_char = chr((ord(char) - base + shift) % 26 + base)
+            encrypted_text += new_char
+        else:
+            encrypted_text += char  # <-- fixed indentation
+
+    return encrypted_text
+
+def decrypt(message, shift):  # <-- fixed missing colon and indentation
+    return encrypt(message, -shift)
+
+print("Welcome to the Caesar Cipher Program!")
+print("This tool lets you hide or reveal secret messages by shifting letters.")
+
+message = input("Please enter your message: ")
+
+while True:
+    try:
+        shift = int(input("Enter a shift number (e.g., 1, 3, 5): "))
+        break
+    except ValueError:
+        print("Please enter a valid number.")
+
+action = input("Type 'e' to encrypt or 'd' to decrypt: ").lower()
+
+if action == 'e':
+    result = encrypt(message, shift)
+    print("🔒 Encrypted Message:", result)
+elif action == 'd':
+    result = decrypt(message, shift)
+    print("🔓 Decrypted Message:", result)
+else:
+    print("Oops! You typed something wrong. Please enter 'e' or 'd'.")
